@@ -6,9 +6,8 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import DOMPurify from "isomorphic-dompurify";
 
-const SinglePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
-    // Fix: Await params for Next.js 15
-    const { slug } = await params;
+const SinglePage = async ({ params }: { params: { slug: string } }) => {
+    const { slug } = params;
 
     const wixClient = await wixClientServer();
 

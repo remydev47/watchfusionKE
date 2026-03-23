@@ -5,6 +5,8 @@ import { members } from "@wix/members";
 import Link from "next/link";
 import { format } from "timeago.js";
 
+export const dynamic = "force-dynamic";
+
 const ProfilePage = async () => {
   const wixClient = await wixClientServer();
 
