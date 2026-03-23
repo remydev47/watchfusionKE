@@ -5,16 +5,19 @@ import { members } from "@wix/members";
 import Link from "next/link";
 import { format } from "timeago.js";
 
-export const dynamic = "force-dynamic";
-
 const ProfilePage = async () => {
   const wixClient = await wixClientServer();
 
-  const user = await wixClient.members.getCurrentMember({
-    fieldsets: [members.Set.FULL],
-  });
+  let user;
+  try {
+    user = await wixClient.members.getCurrentMember({
+      fieldsets: [members.Set.FULL],
+    });
+  } catch (e) {
+    return <div className="">Not logged in!</div>;
+  }
 
-  if (!user.member?.contactId) {
+  if (!user?.member?.contactId) {
     return <div className="">Not logged in!</div>;
   }
 
