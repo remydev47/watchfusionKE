@@ -3,7 +3,10 @@ import { currentCart } from "@wix/ecom";
 import { WixClient } from "@/context/wixContext";
 
 type CartState = {
-  cart: currentCart.Cart;
+  cart: currentCart.Cart & { 
+    subtotal?: { amount: string; formattedAmount: string };
+    priceSummary?: { subtotal?: { amount: string; formattedAmount: string } };
+  };
   isLoading: boolean;
   counter: number;
   getCart: (wixClient: WixClient) => void;
@@ -17,14 +20,14 @@ type CartState = {
 };
 
 export const useCartStore = create<CartState>((set) => ({
-  cart: [],
+  cart: {} as any,
   isLoading: true,
   counter: 0,
   getCart: async (wixClient) => {
     try {
       const cart = await wixClient.currentCart.getCurrentCart();
       set({
-        cart: cart || [],
+        cart: cart || {} as any,
         isLoading: false,
         counter: cart?.lineItems.length || 0,
       });

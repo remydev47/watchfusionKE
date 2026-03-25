@@ -140,7 +140,7 @@ const CartPage = () => {
                     Qty: <span className="font-medium text-gray-900">{item.quantity}</span>
                   </span>
                   <button
-                    onClick={() => handleRemove(item._id)}
+                    onClick={() => handleRemove(item._id || undefined)}
                     disabled={isLoading || removingId === item._id}
                     className="text-sm text-red-400 hover:text-red-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >

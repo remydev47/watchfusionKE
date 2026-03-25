@@ -143,7 +143,7 @@ const CartModal = ({ onClose }: CartModalProps) => {
                       <button
                         className="text-red-400 hover:text-red-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                         disabled={isLoading || !item._id}
-                        onClick={() => handleRemoveItem(item._id)}
+                        onClick={() => handleRemoveItem(item._id || undefined)}
                         aria-label={`Remove ${item.productName?.original}`}
                       >
                         Remove
