@@ -11,7 +11,7 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Watch Fusion",
+  title: "Watch Fusion KE",
   description: "Wear the Moment own the Legacy",
 };
 
