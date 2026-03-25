@@ -15,7 +15,7 @@ const Navbar = () => {
         {/* Left - Logo */}
         <Link href="/" className='flex items-center flex-shrink-0'>
           <Image
-            src="/logo.JPG"
+            src="/logo.jpg"
             alt="Watch Fusion Kenya"
             width={60}
             height={60}
