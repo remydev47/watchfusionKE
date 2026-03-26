@@ -32,6 +32,7 @@ const CartPage = () => {
         await wixClient.currentCart.createCheckoutFromCurrentCart({
           channelType: currentCart.ChannelType.WEB,
         });
+
       const { redirectSession } =
         await wixClient.redirects.createRedirectSession({
           ecomCheckout: { checkoutId: checkout.checkoutId },
