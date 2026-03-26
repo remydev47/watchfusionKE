@@ -20,6 +20,23 @@ const nextConfig = {
       },
     ],
   },
+
+  async rewrites() {
+    return [
+      {
+        source: "/_api/:path*",
+        destination: "https://store.watchfusionkenya.com/_api/:path*",
+      },
+      {
+        source: "/__ecom/:path*",
+        destination: "https://store.watchfusionkenya.com/__ecom/:path*",
+      },
+      {
+        source: "/_partials/:path*",
+        destination: "https://store.watchfusionkenya.com/_partials/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
