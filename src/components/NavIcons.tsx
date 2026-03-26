@@ -103,7 +103,7 @@ const NavIcons = () => {
                     </div>
                 )}
             </div>
-            {isCartOpen && <CartModal onClose={() => setIsCartOpen(false)}/>}
+            {isCartOpen && <CartModal />}
         </div>
     );
 };
