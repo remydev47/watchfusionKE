@@ -18,31 +18,58 @@ const CartModal = ({ onClose }: CartModalProps) => {
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const router = useRouter();
 
+  // const handleCheckout = async () => {
+  //   setCheckoutError(null);
+  //   try {
+  //     const checkout =
+  //       await wixClient.currentCart.createCheckoutFromCurrentCart({
+  //         channelType: currentCart.ChannelType.WEB,
+  //       });
+
+  //     const { redirectSession } =
+  //       await wixClient.redirects.createRedirectSession({
+  //         ecomCheckout: { checkoutId: checkout.checkoutId },
+  //         callbacks: {
+  //           postFlowUrl: window.location.origin,
+  //           thankYouPageUrl: `${window.location.origin}/success`,
+  //         },
+  //       });
+
+  //     if (redirectSession?.fullUrl) {
+  //       window.location.href = redirectSession.fullUrl;
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     setCheckoutError("Something went wrong during checkout. Please try again.");
+  //   }
+  // };
   const handleCheckout = async () => {
-    setCheckoutError(null);
-    try {
-      const checkout =
-        await wixClient.currentCart.createCheckoutFromCurrentCart({
-          channelType: currentCart.ChannelType.WEB,
-        });
+  setCheckoutError(null);
+  try {
+    const checkout =
+      await wixClient.currentCart.createCheckoutFromCurrentCart({
+        channelType: currentCart.ChannelType.WEB,
+      });
 
-      const { redirectSession } =
-        await wixClient.redirects.createRedirectSession({
-          ecomCheckout: { checkoutId: checkout.checkoutId },
-          callbacks: {
-            postFlowUrl: window.location.origin,
-            thankYouPageUrl: `${window.location.origin}/success`,
-          },
-        });
+    const { redirectSession } =
+      await wixClient.redirects.createRedirectSession({
+        ecomCheckout: { checkoutId: checkout.checkoutId },
+        callbacks: {
+          postFlowUrl: `${window.location.origin}`,
+          thankYouPageUrl: `${window.location.origin}/success`,
+          loginUrl: `${window.location.origin}/login`,
+        },
+      });
 
-      if (redirectSession?.fullUrl) {
-        window.location.href = redirectSession.fullUrl;
-      }
-    } catch (err) {
-      console.error(err);
-      setCheckoutError("Something went wrong during checkout. Please try again.");
+    if (redirectSession?.fullUrl) {
+      window.location.href = redirectSession.fullUrl;
     }
-  };
+  } catch (err) {
+    console.error(err);
+    setCheckoutError("Something went wrong during checkout. Please try again.");
+  }
+};
+
 
   const handleViewCart = () => {
     router.push("/cart");

@@ -35,6 +35,10 @@ const nextConfig = {
         source: "/_partials/:path*",
         destination: "https://store.watchfusionkenya.com/_partials/:path*",
       },
+      {
+        source: "/_serverless/:path*",
+        destination: "https://store.watchfusionkenya.com/_serverless/:path*",
+      },
     ];
   },
 };
