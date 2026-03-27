@@ -28,12 +28,12 @@ const CartModal = ({ onClose }: CartModalProps) => {
 
       const { redirectSession } =
         await wixClient.redirects.createRedirectSession({
-          ecomCheckout: { checkoutId: checkout.checkoutId },
-          callbacks: {
-            postFlowUrl: window.location.origin,
-            thankYouPageUrl: `${window.location.origin}/success`,
-          },
-        });
+    ecomCheckout: { checkoutId: checkout.checkoutId },
+    callbacks: {
+      postFlowUrl: "https://www.watchfusionkenya.com",
+      thankYouPageUrl: "https://www.watchfusionkenya.com/success",
+    },
+  });
 
       if (redirectSession?.fullUrl) {
         window.location.href = redirectSession.fullUrl;
