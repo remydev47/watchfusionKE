@@ -26,29 +26,30 @@ const CartPage = () => {
   };
 
   const handleCheckout = async () => {
-    setCheckoutError(null);
-    try {
-      const checkout =
-        await wixClient.currentCart.createCheckoutFromCurrentCart({
-          channelType: currentCart.ChannelType.WEB,
-        });
+  setCheckoutError(null);
+  try {
+    const checkout =
+      await wixClient.currentCart.createCheckoutFromCurrentCart({
+        channelType: currentCart.ChannelType.WEB,
+      });
 
-      const { redirectSession } =
-        await wixClient.redirects.createRedirectSession({
-          ecomCheckout: { checkoutId: checkout.checkoutId },
-          callbacks: {
-            postFlowUrl: window.location.origin,
-            thankYouPageUrl: `${window.location.origin}/success`,
-          },
-        });
-      if (redirectSession?.fullUrl) {
-        window.location.href = redirectSession.fullUrl;
-      }
-    } catch (err) {
-      console.error(err);
-      setCheckoutError("Checkout failed. Please try again.");
+    const { redirectSession } =
+      await wixClient.redirects.createRedirectSession({
+        ecomCheckout: { checkoutId: checkout.checkoutId },
+        callbacks: {
+          postFlowUrl: "https://www.watchfusionkenya.com",
+          thankYouPageUrl: "https://www.watchfusionkenya.com/success",
+        },
+      });
+
+    if (redirectSession?.fullUrl) {
+      window.location.href = redirectSession.fullUrl;
     }
-  };
+  } catch (err) {
+    console.error(err);
+    setCheckoutError("Checkout failed. Please try again.");
+  }
+};
 
   // Loading skeleton
   if (isLoading) {
