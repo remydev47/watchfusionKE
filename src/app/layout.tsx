@@ -11,8 +11,68 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Watch Fusion KE",
-  description: "Wear the Moment own the Legacy",
+  metadataBase: new URL("https://watchfusionkenya.com"),
+  title: {
+    default: "Watch Fusion Kenya | Premium Watches in Nairobi",
+    template: "%s | Watch Fusion Kenya",
+  },
+  description:
+    "Shop premium watches in Kenya. WatchFusion Kenya offers luxury, sport & casual watches with fast delivery across Nairobi and Kenya. Wear the Moment, Own the Legacy.",
+  keywords: [
+    "watches Kenya",
+    "buy watches Nairobi",
+    "luxury watches Kenya",
+    "affordable watches Nairobi",
+    "WatchFusion Kenya",
+    "online watch store Kenya",
+    "men watches Kenya",
+    "women watches Kenya",
+    "sport watches Nairobi",
+    "wrist watches Kenya",
+  ],
+  authors: [{ name: "WatchFusion Kenya" }],
+  creator: "WatchFusion Kenya",
+  openGraph: {
+    type: "website",
+    locale: "en_KE",
+    url: "https://watchfusionkenya.com",
+    siteName: "WatchFusion Kenya",
+    title: "WatchFusion Kenya | Premium Watches in Nairobi",
+    description:
+      "Shop premium watches in Kenya. Luxury, sport & casual watches with fast delivery across Nairobi and Kenya.",
+    images: [
+      {
+        url: "/logo.png",
+        width: 800,
+        height: 600,
+        alt: "WatchFusion Kenya",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "WatchFusion Kenya | Premium Watches in Nairobi",
+    description:
+      "Shop premium watches in Kenya. Fast delivery across Nairobi and Kenya.",
+    images: ["/logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://watchfusionkenya.com",
+  },
+  verification: {
+    google: "YOUR_GOOGLE_VERIFICATION_CODE",
+  },
 };
 
 export default function RootLayout({

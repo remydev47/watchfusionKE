@@ -2,6 +2,7 @@
 
 import { useCartStore } from "@/hooks/useCartStore";
 import { useWixClient } from "@/hooks/useWixClient";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const Add = ({
@@ -15,8 +16,7 @@ const Add = ({
 }) => {
   const [quantity, setQuantity] = useState(1);
 
-  // // TEMPORARY
-  // const stock = 4;
+  const router = useRouter();
 
   const handleQuantity = (type: "i" | "d") => {
     if (type === "d" && quantity > 1) {
@@ -31,6 +31,11 @@ const Add = ({
 
   const { addItem, isLoading } = useCartStore();
 
+  const handleAddToCart = async () => {
+    await addItem(wixClient, productId, variantId, quantity);
+    router.push("/cart");
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <h4 className="font-medium">Choose a Quantity</h4>
@@ -40,7 +45,7 @@ const Add = ({
             <button
               className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
               onClick={() => handleQuantity("d")}
-              disabled={quantity===1}
+              disabled={quantity === 1}
             >
               -
             </button>
@@ -48,13 +53,13 @@ const Add = ({
             <button
               className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
               onClick={() => handleQuantity("i")}
-              disabled={quantity===stockNumber}
+              disabled={quantity === stockNumber}
             >
               +
             </button>
           </div>
           {stockNumber < 1 ? (
-            <div className="text-xs">Product is out of stock</div>
+            <div className="text-xs text-red-500">Product is out of stock</div>
           ) : (
             <div className="text-xs">
               Only <span className="text-orange-500">{stockNumber} items</span>{" "}
@@ -64,8 +69,8 @@ const Add = ({
           )}
         </div>
         <button
-          onClick={() => addItem(wixClient, productId, variantId, quantity)}
-          disabled={isLoading}
+          onClick={handleAddToCart}
+          disabled={isLoading || stockNumber < 1}
           className="w-36 text-sm rounded-3xl ring-1 ring-lama text-lama py-2 px-4 hover:bg-lama hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
         >
           Add to Cart

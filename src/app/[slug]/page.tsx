@@ -5,8 +5,54 @@ import { wixClientServer } from "@/lib/wixClientServer";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import DOMPurify from "isomorphic-dompurify";
+import { Metadata } from "next";
 
-const SinglePage = async ({ params }: { params: { slug: string } }) => {
+type Props = {
+    params: { slug: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = params;
+    const wixClient = await wixClientServer();
+    const products = await wixClient.products
+        .queryProducts()
+        .eq("slug", slug)
+        .find();
+
+    const product = products.items[0];
+    if (!product) return { title: "Product Not Found" };
+
+    const plainDescription = product.description
+        ? product.description.replace(/<[^>]*>/g, "").slice(0, 160)
+        : `Buy ${product.name} at WatchFusion Kenya. Premium watches with fast delivery across Nairobi and Kenya.`;
+
+    return {
+        title: product.name,
+        description: plainDescription,
+        openGraph: {
+            title: `${product.name} | WatchFusion Kenya`,
+            description: plainDescription,
+            url: `https://watchfusionkenya.com/${slug}`,
+            images: product.media?.mainMedia?.image?.url
+                ? [{ url: product.media.mainMedia.image.url, alt: product.name || "Watch" }]
+                : [],
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${product.name} | WatchFusion Kenya`,
+            description: plainDescription,
+            images: product.media?.mainMedia?.image?.url
+                ? [product.media.mainMedia.image.url]
+                : [],
+        },
+        alternates: {
+            canonical: `https://watchfusionkenya.com/${slug}`,
+        },
+    };
+}
+
+const SinglePage = async ({ params }: Props) => {
     const { slug } = params;
 
     const wixClient = await wixClientServer();
@@ -24,6 +70,30 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
 
     return (
         <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16 py-8">
+            {/* JSON-LD Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "Product",
+                        name: product.name,
+                        image: product.media?.mainMedia?.image?.url,
+                        description: product.description
+                            ? product.description.replace(/<[^>]*>/g, "").slice(0, 300)
+                            : "",
+                        offers: {
+                            "@type": "Offer",
+                            price: product.price?.discountedPrice || product.price?.price,
+                            priceCurrency: "KES",
+                            availability: product.stock?.inStock
+                                ? "https://schema.org/InStock"
+                                : "https://schema.org/OutOfStock",
+                            url: `https://watchfusionkenya.com/${slug}`,
+                        },
+                    }),
+                }}
+            />
             {/* IMG */}
             <div className="w-full lg:w-1/2 lg:sticky top-20 h-max">
                 <ProductImages items={product.media?.items} />
@@ -92,11 +162,7 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
 
                 <div className="h-[2px] bg-gray-100" />
 
-                {/* REVIEWS */}
-                <h2 className="text-2xl font-bold">User Reviews</h2>
-                {/*<Suspense fallback={<div className="text-gray-500">Loading reviews...</div>}>*/}
-                {/*    <Reviews productId={product._id!} />*/}
-                {/*</Suspense>*/}
+                
             </div>
         </div>
     );
