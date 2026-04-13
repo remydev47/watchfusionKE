@@ -42,9 +42,7 @@ const CustomizeProducts = ({
                 Object.entries(choices).every(
                     ([key, value]) => variantChoices[key] === value
                 ) &&
-                variant.stock?.inStock &&
-                variant.stock?.quantity &&
-                variant.stock?.quantity > 0
+                variant.stock?.inStock
             );
         });
     };
@@ -114,7 +112,10 @@ const CustomizeProducts = ({
                 variantId={
                     selectedVariant?._id || "00000000-0000-0000-0000-000000000000"
                 }
-                stockNumber={selectedVariant?.stock?.quantity || 0}
+                stockNumber={
+                    selectedVariant?.stock?.quantity ??
+                    (selectedVariant?.stock?.inStock ? 9999 : 0)
+                }
             />
             {/* COLOR */}
             {/*

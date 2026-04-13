@@ -21,7 +21,7 @@ type CartState = {
 
 export const useCartStore = create<CartState>((set) => ({
   cart: {} as any,
-  isLoading: true,
+  isLoading: false,
   counter: 0,
   getCart: async (wixClient) => {
     try {

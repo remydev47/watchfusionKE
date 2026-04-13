@@ -131,7 +131,7 @@ const SinglePage = async ({ params }: Props) => {
                 <div className="h-[2px] bg-gray-100" />
 
                 {/* Add to Cart / Customize */}
-                {product.variants && product.productOptions ? (
+                {product.variants && product.productOptions && product.productOptions.length > 0 ? (
                     <CustomizeProducts
                         productId={product._id!}
                         variants={product.variants}
@@ -141,7 +141,9 @@ const SinglePage = async ({ params }: Props) => {
                     <Add
                         productId={product._id!}
                         variantId="00000000-0000-0000-0000-000000000000"
-                        stockNumber={product.stock?.quantity || 0}
+                        stockNumber={
+                          product.stock?.quantity ?? (product.stock?.inStock ? 9999 : 0)
+                        }
                     />
                 )}
 
