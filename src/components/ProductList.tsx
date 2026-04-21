@@ -7,7 +7,7 @@ import {products} from "@wix/stores";
 import Add from "@/components/Add";
 
 
-const PRODUCT_PER_PAGE = 8;
+const PRODUCT_PER_PAGE = 20;
 
 const ProductList= async ({
                                categoryId,
@@ -106,13 +106,11 @@ const ProductList= async ({
                     </button>
                 </Link>
             ))}
-            {searchParams?.cat || searchParams?.name ? (
-                <Pagination
-                    currentPage={res.currentPage || 0}
-                    hasPrev={res.hasPrev()}
-                    hasNext={res.hasNext()}
-                />
-            ) : null}
+            <Pagination
+                currentPage={res.currentPage || 0}
+                hasPrev={res.hasPrev()}
+                hasNext={res.hasNext()}
+            />
         </div>
     );
 };
