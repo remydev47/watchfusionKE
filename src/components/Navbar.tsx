@@ -13,19 +13,15 @@ const Navbar = () => {
       {/* Mobile Navbar */}
       <div className='md:hidden h-full flex items-center justify-between border-b border-gray-200 pb-4'>
         {/* Left - Logo */}
-        <Link href="/" className='flex items-center gap-2 flex-shrink-0'>
-          <span className='relative w-10 h-10 rounded-full overflow-hidden bg-brand-black flex-shrink-0'>
-            <Image
-              src="/logo.jpg"
-              alt="Watch Fusion Kenya"
-              fill
-              sizes="40px"
-              className='object-cover scale-125'
-            />
-          </span>
-          <span className='font-bold text-base tracking-tight whitespace-nowrap'>
-            Watch Fusion <span className='text-brand-gold-dark'>Ke</span>
-          </span>
+        <Link href="/" className='flex items-center flex-shrink-0 bg-brand-black rounded-lg px-3 py-1.5'>
+          <Image
+            src="/logo.png"
+            alt="Watch Fusion Kenya"
+            width={118}
+            height={50}
+            priority
+            className='h-8 w-auto'
+          />
         </Link>
         <Menu />
       </div>
@@ -34,19 +30,15 @@ const Navbar = () => {
       <div className='hidden md:flex items-center justify-between gap-8 h-full'>
         {/* Left Section */}
         <div className='w-1/3 xl:w-1/2 flex items-center gap-12'>
-          <Link href="/" className="flex items-center gap-3 flex-shrink-0">
-            <span className='relative w-10 h-10 rounded-full overflow-hidden bg-brand-black flex-shrink-0'>
-              <Image
-                src="/logo.jpg"
-                alt="Watch Fusion Kenya"
-                fill
-                sizes="40px"
-                className='object-cover scale-125'
-              />
-            </span>
-            <span className='font-bold text-lg tracking-tight whitespace-nowrap'>
-              Watch Fusion <span className='text-brand-gold-dark'>Ke</span>
-            </span>
+          <Link href="/" className="flex items-center flex-shrink-0 bg-brand-black rounded-lg px-3 py-1.5">
+            <Image
+              src="/logo.png"
+              alt="Watch Fusion Kenya"
+              width={118}
+              height={50}
+              priority
+              className='h-10 w-auto'
+            />
           </Link>
           <div className="hidden xl:flex gap-4">
             <Link href="/" className="hover:text-gray-600 transition-colors">
