@@ -2,20 +2,33 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useWixClient } from "@/hooks/useWixClient";
 import { useCartStore } from "@/hooks/useCartStore";
 import Cookies from "js-cookie";
 
+type Category = { _id?: string | null; name?: string | null; slug?: string | null };
+
 const Menu = () => {
   const [open, setOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
+  const [cats, setCats] = useState<Category[]>([]);
 
   const router = useRouter();
   const wixClient = useWixClient();
   const isLoggedIn = wixClient.auth.loggedIn();
   const { counter } = useCartStore();
+
+  // Fetch categories the first time the drawer opens
+  useEffect(() => {
+    if (!open || cats.length > 0) return;
+    wixClient.collections
+      .queryCollections()
+      .find()
+      .then((res) => setCats(res.items))
+      .catch(() => {});
+  }, [open, cats.length, wixClient]);
 
   const handleLogout = async () => {
     setLoggingOut(true);
@@ -90,7 +103,7 @@ const Menu = () => {
         </div>
 
         {/* Nav links */}
-        <nav className="flex flex-col px-6 py-6 gap-1 flex-1">
+        <nav className="flex flex-col px-6 py-6 gap-1 flex-1 overflow-y-auto">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -101,6 +114,25 @@ const Menu = () => {
               {link.label}
             </Link>
           ))}
+
+          {/* Categories */}
+          {cats.length > 0 && (
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                Shop by Category
+              </p>
+              {cats.map((cat) => (
+                <Link
+                  key={cat._id}
+                  href={`/list?cat=${cat.slug}`}
+                  onClick={close}
+                  className="block text-base font-medium text-gray-800 hover:text-black hover:bg-gray-50 px-3 py-3 rounded-lg transition-colors"
+                >
+                  {cat.name}
+                </Link>
+              ))}
+            </div>
+          )}
 
           {/* Cart link with live counter */}
           <Link
