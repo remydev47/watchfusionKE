@@ -109,7 +109,7 @@ const SliderClient = ({ slides }: { slides: SlideData[] }) => {
                         {/* TEXT */}
                         <div className="w-full xl:w-1/2 xl:h-[calc(100vh-80px)] flex flex-col items-center justify-center gap-4 md:gap-6 text-center px-6 py-8 xl:py-0">
                             {slide.categoryTag && (
-                                <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-white/80 bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
+                                <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-brand-gold border border-brand-gold/30 bg-white/5 px-3 py-1 rounded-full backdrop-blur-sm">
                                     {slide.categoryTag}
                                 </span>
                             )}
@@ -120,12 +120,12 @@ const SliderClient = ({ slides }: { slides: SlideData[] }) => {
                                 {slide.title}
                             </h1>
                             {slide.subtitle && (
-                                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-yellow-300">
+                                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-brand-gold">
                                     {slide.subtitle}
                                 </p>
                             )}
                             <Link href={slide.url || "/"}>
-                                <button className="mt-2 rounded-lg bg-white text-gray-900 font-semibold py-3 px-8 text-sm hover:bg-gray-100 active:scale-95 transition-all duration-200">
+                                <button className="mt-2 rounded-lg bg-brand-gold text-black font-bold py-3 px-8 text-sm hover:bg-brand-gold-dark active:scale-95 transition-all duration-200">
                                     {slide.buttonText || "SHOP NOW"}
                                 </button>
                             </Link>
@@ -149,7 +149,7 @@ const SliderClient = ({ slides }: { slides: SlideData[] }) => {
             {/* Prev / Next arrows — hidden on mobile */}
             <button
                 onClick={prevSlide}
-                className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full items-center justify-center text-white transition-colors z-10"
+                className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-brand-gold hover:text-black backdrop-blur-sm rounded-full items-center justify-center text-white transition-colors z-10"
                 aria-label="Previous slide"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -158,7 +158,7 @@ const SliderClient = ({ slides }: { slides: SlideData[] }) => {
             </button>
             <button
                 onClick={nextSlide}
-                className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full items-center justify-center text-white transition-colors z-10"
+                className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-brand-gold hover:text-black backdrop-blur-sm rounded-full items-center justify-center text-white transition-colors z-10"
                 aria-label="Next slide"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -175,8 +175,8 @@ const SliderClient = ({ slides }: { slides: SlideData[] }) => {
                         aria-label={`Go to slide ${index + 1}`}
                         className={`rounded-full transition-all duration-300 ${
                             current === index
-                                ? "w-6 h-2.5 bg-white"
-                                : "w-2.5 h-2.5 bg-white/40 hover:bg-white/70"
+                                ? "w-6 h-2.5 bg-brand-gold"
+                                : "w-2.5 h-2.5 bg-white/40 hover:bg-brand-gold/70"
                         }`}
                     />
                 ))}

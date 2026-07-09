@@ -15,6 +15,11 @@ const config: Config = {
       },
       colors: {
         lama: "#F35C7A",
+        brand: {
+          gold: "#F9C92B",
+          "gold-dark": "#DCA918",
+          black: "#0A0A0A",
+        },
       },
     },
   },

@@ -12,7 +12,7 @@ const fallbackSlides: SlideData[] = [
         buttonText: 'Explore Collection',
         img: '/products/megir2.jpg',
         url: '/shop',
-        bg: 'from-orange-400 via-orange-500 to-orange-600',
+        bg: 'from-zinc-900 via-black to-zinc-900',
     },
     {
         id: 'elegance',
@@ -23,7 +23,7 @@ const fallbackSlides: SlideData[] = [
         buttonText: 'Shop Now',
         img: '/products/megirb.jpg',
         url: '/shop',
-        bg: 'from-slate-700 via-slate-800 to-slate-900',
+        bg: 'from-[#3a2d08] via-[#1c1604] to-black',
     },
     {
         id: 'arrivals',
@@ -34,7 +34,7 @@ const fallbackSlides: SlideData[] = [
         buttonText: 'Shop New In',
         img: '/products/cap1.jpeg',
         url: '/shop?cat=gents-watches',
-        bg: 'from-emerald-600 via-emerald-700 to-emerald-800',
+        bg: 'from-neutral-800 via-neutral-900 to-black',
     }
 ];
 
@@ -73,7 +73,7 @@ const Slider = async () => {
                         buttonText: data.buttonText || "Shop Now",
                         img: imgUrl,
                         url: data.url || "/shop",
-                        bg: data.bgGradient || "from-orange-400 via-orange-500 to-orange-600",
+                        bg: data.bgGradient || "from-zinc-900 via-black to-zinc-900",
                     };
                 });
 
